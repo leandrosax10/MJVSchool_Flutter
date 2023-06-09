@@ -5,44 +5,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* return MaterialApp(
-      title: 'School',
-      home: Scaffold(
-        body: Container(
-        padding: const EdgeInsets.all(20),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CircleAvatar(child: Text('L'),),
-                const Text('Texto1'),
-                const Text('Texto2'),
-                const Text('Texto3'),
-                const Divider(),
-                const Row(
-                  children: [
-                    Icon(Icons.add, color: Colors.green),
-                    Spacer(),
-                    Icon(Icons.access_alarm, color: Colors.yellow),
-                  ],
-                ),
-                Switch(value: true, onChanged: (val) {}),
-                const Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('Leandro'),
-                  ),
-                ),
-              ]),
-        ),
-      ),
-    ); */
-
     return MaterialApp(
         title: 'school',
         home: Scaffold(
           body: Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Card(
                 margin: const EdgeInsets.all(0),
@@ -65,6 +32,28 @@ class MyApp extends StatelessWidget {
               const Text(
                 'Minhas estatísticas',
               ),
+              const Row(children: [
+                Icon(Icons.list),
+                SizedBox(width: 8),
+                Text('0'),
+              ],),
+              const Row(children: [
+                Icon(Icons.list),
+                SizedBox(width: 8),
+                Text('Concluídas: '),
+                Text('0'),
+              ]),
+              const SizedBox(height: 16),
+              const Divider(),
+              const SizedBox(height: 16),
+              const Text('Minhas estatísticas', style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 16),
+              Row(children: [
+              const Text('Tema escuro'),
+              const Spacer(),
+              Switch(value: true, onChanged: (value) {}),
+              ],)
             ]),
           ),
         ));
