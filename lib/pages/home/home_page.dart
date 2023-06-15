@@ -1,30 +1,61 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+import '../../components/app_bar_component.dart';
+import 'abas/afazeres_tab.dart';
+import 'abas/perfil_tab.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late int abaSelecionada;
+
+  final List<BottomNavigationBarItem> _abas = [
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+    const BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Perfil'),
+  ];
+
+  final List<Widget> _conteudos = [
+    AfazeresTab(
+      valorInicial: 0,
+      callback: (tabIdx) {
+        print(tabIdx);
+      },
+    ),
+    const PerfilTab(),
+  ];
+
+  void handleTab(int tabIdx) {
+    setState(() {
+      abaSelecionada = tabIdx;
+    });
+  }
+
+  @override
+  void initState() {
+    abaSelecionada = 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<BottomNavigationBarItem> _abas = [
-      const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      const BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Perfil'),
-      const BottomNavigationBarItem(icon: Icon(Icons.production_quantity_limits), label: 'Produto'),
-    ];
-
-    final List<Widget> _conteudos = [
-    const Text('home'),
-    const Text('Perfil'),
-    const Text('Produto'),
-    ];
-
     return Scaffold(
-      appBar: AppBar(title: const Text('My App')),
-      body: _conteudos.elementAt(0),//elemento que está no indice 0 (home)
+      appBar: const AppBarComponent(),
+      body: _conteudos.elementAt(abaSelecionada),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+        currentIndex: abaSelecionada,
         items: _abas,
+        onTap: handleTab,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          handleTab(1);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
