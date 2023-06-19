@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
     AfazeresTab(
       valorInicial: 0,
       callback: (tabIdx) {
-        print(tabIdx);
       },
     ),
     const PerfilTab(),
