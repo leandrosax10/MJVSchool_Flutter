@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:school/components/spacer_component.dart';
-import '../../../components/iconButton_component.dart';
+import 'package:school/pages/home/components/item_widget.dart';
 import '../../../entities/afazer_entity.dart';
+import '../components/novo_item_widget.dart';
 
 class AfazeresTab extends StatefulWidget {
   final int valorInicial;
@@ -19,16 +20,23 @@ class _AfazeresTab extends State<AfazeresTab> {
 
 //Função para adicionar um item
   void handleAdicionar() {
-    setState(() {
-      _listaAfazeres.add(
-        AfazerEntity(
-            uuid: 'teste3',
-            titulo: 'Teste 3',
-            dataInicio: DateTime.now(),
-            dataFim: DateTime.now(),
-            isConcluido: false),
-      );
-    });
+    //showDialog cria modal!
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          contentPadding: const EdgeInsets.all(16),
+          children: [
+            NovoItemWidget(callback: (item) {
+              _listaAfazeres.add(item);
+              setState(() {
+                _listaAfazeres = _listaAfazeres;
+              });
+            })
+          ],
+        );
+      },
+    );
   }
 
 //Função para remover um item
@@ -69,33 +77,32 @@ class _AfazeresTab extends State<AfazeresTab> {
         ),
         Container(
           padding: const EdgeInsets.all(6),
-          child: Card(
-              child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 400,
-              child: ListView.builder(
-                itemCount: _listaAfazeres.length,
-                itemBuilder: (context, index) {
-                  final item = _listaAfazeres.elementAt(index);
-                  
-                  //para remover um item arrastando o item
-                  return Dismissible(
-                    key: Key(item.uuid),
-                    onDismissed: (direction) {
-                      if (direction == DismissDirection.startToEnd) {
-                        handleEcluir(index);
-                      }
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 400,
+            child: ListView.builder(
+              itemCount: _listaAfazeres.length,
+              itemBuilder: (context, index) {
+                final item = _listaAfazeres.elementAt(index);
+
+                //para remover um item arrastando o item
+                return Dismissible(
+                  key: Key(item.uuid),
+                  onDismissed: (direction) {
+                    if (direction == DismissDirection.startToEnd) {
+                      handleEcluir(index);
+                    }
+                  },
+                  child: ItemWidget(
+                    item: item,
+                    onPressed: () {
+                      handleAdicionar();
                     },
-                    child: Text(item.titulo),
-                  
-                  );
-                },
-              ),
-              
+                  ),
+                );
+              },
             ),
-          )),
+          ),
         ),
         const SpacerComponent(),
       ],

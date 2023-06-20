@@ -1,6 +1,6 @@
 class AfazerCheckListEntity {
   String titulo;
-  bool isChecked;
+  bool? isChecked;
 
-  AfazerCheckListEntity({required this.titulo, required this.isChecked});
+  AfazerCheckListEntity({required this.titulo,  this.isChecked});
 }
