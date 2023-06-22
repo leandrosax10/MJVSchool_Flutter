@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../components/iconButton_component.dart';
+import '../../../components/icon_button_component.dart';
 import '../../../components/spacer_component.dart';
 
 class PerfilTab extends StatelessWidget {

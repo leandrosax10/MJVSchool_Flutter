@@ -16,15 +16,12 @@ class _HomePageState extends State<HomePage> {
 
   final List<BottomNavigationBarItem> _abas = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Perfil'),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.account_circle), label: 'Perfil'),
   ];
 
   final List<Widget> _conteudos = [
-    AfazeresTab(
-      valorInicial: 0,
-      callback: (tabIdx) {
-      },
-    ),
+    const AfazeresTab(),
     const PerfilTab(),
   ];
 

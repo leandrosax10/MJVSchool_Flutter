@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:school/components/iconButton_component.dart';
+import 'package:school/components/icon_button_component.dart';
 import 'package:school/components/spacer_component.dart';
-import 'package:school/entities/afazerChecklist_entity.dart';
-
+import 'package:school/entities/afazer_checklist_entity.dart';
+import 'package:uuid/uuid.dart';
 import '../../../entities/afazer_entity.dart';
 
 class NovoItemWidget extends StatefulWidget {
@@ -49,7 +49,8 @@ class _NovoItemWidgetStateState extends State<NovoItemWidget> {
     final isValido = _formKey.currentState!.validate();
     if (isValido) {
       final item = AfazerEntity(
-        uuid: 'xpto',
+      //uuid para gerar id
+        uuid: const Uuid().v4(), 
         titulo: _titleController.text,
         dataInicio: DateTime.now(),
         dataFim: DateTime.now(),
