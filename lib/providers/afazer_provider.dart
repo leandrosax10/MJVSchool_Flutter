@@ -18,6 +18,7 @@ class AfazerProvider with ChangeNotifier {
 
   set listaAfazeres(List<AfazerEntity> val) {
     _listaAfazeres = val;
+    service.salvar(_listaAfazeres);
     notifyListeners(); //toda vez que alterar o estado da lista, precisa chamar o notifyListeners()
   
   }
