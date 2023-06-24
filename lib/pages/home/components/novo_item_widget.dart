@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:school/components/icon_button_component.dart';
-import 'package:school/components/spacer_component.dart';
-import 'package:school/entities/afazer_checklist_entity.dart';
 import 'package:uuid/uuid.dart';
+import '../../../components/icon_button_component.dart';
+import '../../../components/spacer_component.dart';
+import '../../../entities/afazer_checklist_entity.dart';
 import '../../../entities/afazer_entity.dart';
 
 class NovoItemWidget extends StatefulWidget {
