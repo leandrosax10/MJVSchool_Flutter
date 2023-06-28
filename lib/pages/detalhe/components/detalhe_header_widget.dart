@@ -7,8 +7,11 @@ class DetalheHeaderWidget extends StatelessWidget {
   final AfazerEntity item;
   final Function() onEdit;
 
-  const DetalheHeaderWidget(
-      {super.key, required this.item, required this.onEdit});
+  const DetalheHeaderWidget({
+    super.key,
+    required this.item,
+    required this.onEdit,
+  });
 
   Widget makeImage() {
     if (item.image != null) {
@@ -35,10 +38,10 @@ class DetalheHeaderWidget extends StatelessWidget {
           right: 0,
           left: 0,
           child: Container(
-            width: double.infinity,
+            width: double.maxFinite,
             color: const Color.fromARGB(219, 255, 193, 7),
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
+            child: const Text(
               'Bar',
               textAlign: TextAlign.center,
               style: TextStyle(

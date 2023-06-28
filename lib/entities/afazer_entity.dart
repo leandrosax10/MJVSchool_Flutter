@@ -6,7 +6,7 @@ class AfazerEntity {
   DateTime dataInicio;
   DateTime dataFim;
   bool? isConcluido;
-  List<AfazerCheckListEntity>? conteudos;
+  List<AfazerCheckListEntity> conteudos;
   String? image;
 
   AfazerEntity(

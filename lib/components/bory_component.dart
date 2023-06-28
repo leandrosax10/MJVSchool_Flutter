@@ -31,7 +31,7 @@ const BodyComponent({
         padding: padding?? const EdgeInsets.all(18),
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
-        child: child,
+        child: SingleChildScrollView(child: child),
       ),
       bottomNavigationBar: bar,
       floatingActionButton: actionButton,
