@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:shcool/components/icon_button_component.dart';
+import 'package:shcool/components/spacer_component.dart';
+import 'package:shcool/entities/afazer_checklist_enty.dart';
+import 'package:shcool/entities/afazer_entity.dart';
 import 'package:uuid/uuid.dart';
-import '../../../components/icon_button_component.dart';
-import '../../../components/spacer_component.dart';
-import '../../../entities/afazer_checklist_entity.dart';
-import '../../../entities/afazer_entity.dart';
 
 class NovoItemWidget extends StatefulWidget {
   final void Function(AfazerEntity item) callback;
-  const NovoItemWidget({super.key, required this.callback});
+
+  const NovoItemWidget({
+    super.key,
+    required this.callback,
+  });
 
   @override
-  State<NovoItemWidget> createState() => _NovoItemWidgetStateState();
+  State<NovoItemWidget> createState() => _NovoItemWidgetState();
 }
 
 enum TipoLista {
@@ -18,24 +22,21 @@ enum TipoLista {
   tarefa,
 }
 
-class _NovoItemWidgetStateState extends State<NovoItemWidget> {
+class _NovoItemWidgetState extends State<NovoItemWidget> {
   final _formKey = GlobalKey<FormState>();
   final _formKeyTarefas = GlobalKey<FormState>();
   final _titleController = TextEditingController();
 
   List<TextEditingController> itens = [];
-  TipoLista dropdowValue = TipoLista.lembrete;
+  TipoLista dropdownValue = TipoLista.lembrete;
 
   Widget defaultCheckItem(TextEditingController controller) {
     return CheckboxListTile(
       title: TextFormField(
         controller: controller,
-        decoration:
-            const InputDecoration(hintText: 'Digite um nome para a tarefa'),
+        decoration: const InputDecoration(hintText: 'Digite um nome para a tarefa'),
         validator: (value) {
-          return (value == null || value.isEmpty)
-              ? 'Por favor digite um nome'
-              : null;
+          return (value == null || value.isEmpty) ? 'Por favor, digite um nome' : null;
         },
       ),
       controlAffinity: ListTileControlAffinity.leading,
@@ -49,8 +50,7 @@ class _NovoItemWidgetStateState extends State<NovoItemWidget> {
     final isValido = _formKey.currentState!.validate();
     if (isValido) {
       final item = AfazerEntity(
-      //uuid para gerar id
-        uuid: const Uuid().v4(), 
+        uuid: const Uuid().v4(),
         titulo: _titleController.text,
         dataInicio: DateTime.now(),
         dataFim: DateTime.now(),
@@ -58,12 +58,12 @@ class _NovoItemWidgetStateState extends State<NovoItemWidget> {
       );
 
       bool valid = false;
-      if (dropdowValue == TipoLista.tarefa) {
+      if (dropdownValue == TipoLista.tarefa) {
         final isTarefasValidas = _formKeyTarefas.currentState!.validate();
         if (isTarefasValidas) {
           valid = true;
           for (final value in itens) {
-            item.conteudos!.add(AfazerCheckListEntity(titulo: value.text));
+            item.conteudos!.add(AfazerChecklistEntity(titulo: value.text));
           }
         }
       } else {
@@ -78,7 +78,7 @@ class _NovoItemWidgetStateState extends State<NovoItemWidget> {
   }
 
   void addItem() {
-    if (dropdowValue == TipoLista.tarefa) {
+    if (dropdownValue == TipoLista.tarefa) {
       itens.add(TextEditingController());
       setState(() {
         itens = itens;
@@ -96,70 +96,65 @@ class _NovoItemWidgetStateState extends State<NovoItemWidget> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: [
-          const SpacerComponent(),
+      child: Column(children: [
+        Row(
+          children: [
+            const Text('Tipo de lista', style: TextStyle(fontSize: 18)),
+            const SpacerComponent(isFull: true),
+            DropdownButton(
+              value: dropdownValue,
+              items: const [
+                DropdownMenuItem(
+                  value: TipoLista.lembrete,
+                  child: Text('Lembrete'),
+                ),
+                DropdownMenuItem(
+                  value: TipoLista.tarefa,
+                  child: Text('Tarefas'),
+                ),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  dropdownValue = value!;
+                });
+              },
+            ),
+          ],
+        ),
+        TextFormField(
+          controller: _titleController,
+          decoration: const InputDecoration(hintText: 'Digi um nome'),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Por favor, digite um nome.';
+            }
+            return null;
+          },
+        ),
+        const SpacerComponent(),
+        if (dropdownValue == TipoLista.tarefa)
           Row(
             children: [
-              const Text('Tipo de lista', style: TextStyle(fontSize: 18)),
+              const Text('Lista: '),
               const SpacerComponent(isFull: true),
-              DropdownButton(
-                value: dropdowValue,
-                items: const [
-                  DropdownMenuItem(
-                    value: TipoLista.lembrete,
-                    child: Text('Lembrete'),
-                  ),
-                  DropdownMenuItem(
-                    value: TipoLista.tarefa,
-                    child: Text('Tarefas'),
-                  ),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    dropdowValue = value!;
-                  });
-                },
+              IconButtonComponent(
+                onPressed: addItem,
+                size: 16,
+                icon: Icons.add,
               )
             ],
           ),
-          TextFormField(
-            controller: _titleController,
-            decoration: const InputDecoration(hintText: 'Digite um nome'),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Por favor, digite um nome';
-              }
-              return null;
-            },
+        if (dropdownValue == TipoLista.tarefa)
+          Form(
+            key: _formKeyTarefas,
+            child: Column(children: itens.map(defaultCheckItem).toList()),
           ),
-          const SpacerComponent(),
-          if (dropdowValue == TipoLista.tarefa)
-            Row(
-              children: [
-                const Text('Lista: '),
-                const SpacerComponent(isFull: true),
-                IconButtonComponent(
-                  onPressed: addItem,
-                  size: 16,
-                  icon: Icons.add,
-                ),
-              ],
-            ),
-          if (dropdowValue == TipoLista.tarefa)
-            Form(
-              key: _formKeyTarefas,
-              child: Column(
-                children: itens.map(defaultCheckItem).toList(),
-              ),
-            ),
-          const SpacerComponent(),
-          ElevatedButton(
-            onPressed: handleSubmit,
-            child: const Text('Cadastrar'),
-          ),
-        ],
-      ),
+        const SpacerComponent(),
+        ElevatedButton(
+          onPressed: handleSubmit,
+          child: const Text('Cadastrar'),
+        ),
+      ]),
     );
   }
 }

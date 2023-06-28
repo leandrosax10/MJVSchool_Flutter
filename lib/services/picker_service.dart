@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -18,11 +20,11 @@ class PickerService {
     return image;
   }
 
-  String base64(List<int>imageBytes) {
-  return base64Encode(imageBytes);
+  String base64(List<int> imageBytes) {
+    return base64Encode(imageBytes);
   }
 
   Uint8List decodeBase64(String source) {
-  return base64Decode(source);
+    return base64Decode(source);
   }
 }

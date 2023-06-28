@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:shcool/components/body_component.dart';
 import 'package:shcool/providers/afazer_provider.dart';
 
-import '../../components/bory_component.dart';
-import 'abas/afazeres_tab.dart';
+import '../../components/app_bar_component.dart';
+import 'abas/afazes_tab.dart';
 import 'abas/perfil_tab.dart';
 
 class HomePage extends StatefulWidget {

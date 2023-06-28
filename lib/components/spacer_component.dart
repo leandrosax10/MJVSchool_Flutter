@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SpacerComponent extends StatelessWidget {
-//constantes
   final double size;
   final bool isFull;
   final bool isHorizontal;
 
-//Construtor
   const SpacerComponent({
     Key? key,
     this.size = 16,
@@ -16,7 +14,8 @@ class SpacerComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isFull ? const Spacer()
+    return isFull
+        ? const Spacer()
         : SizedBox(
             height: size,
             width: isHorizontal ? size : null,

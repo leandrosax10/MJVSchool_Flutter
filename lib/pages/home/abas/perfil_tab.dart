@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shcool/providers/afazer_provider.dart';
 import 'package:shcool/providers/config_provider.dart';
+
 import '../../../components/icon_button_component.dart';
 import '../../../components/spacer_component.dart';
 
@@ -30,7 +31,7 @@ class _PerfilTabState extends State<PerfilTab> {
             child: Row(children: [
               const CircleAvatar(child: Text('R')),
               const SpacerComponent(size: 8, isHorizontal: true),
-              const Text('Rafael Silva', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text('Leandro Santos', style: TextStyle(fontWeight: FontWeight.bold)),
               const SpacerComponent(isFull: true),
               IconButtonComponent(
                 icon: Icons.more_vert,

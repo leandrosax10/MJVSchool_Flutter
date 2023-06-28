@@ -1,4 +1,4 @@
-import 'package:shcool/entities/afazer_checklist_entity.dart';
+import 'afazer_checklist_enty.dart';
 
 class AfazerEntity {
   String uuid;
@@ -6,41 +6,40 @@ class AfazerEntity {
   DateTime dataInicio;
   DateTime dataFim;
   bool? isConcluido;
-  List<AfazerCheckListEntity> conteudos;
+  List<AfazerChecklistEntity> conteudos;
   String? image;
 
-  AfazerEntity(
-      {required this.uuid,
-      required this.titulo,
-      required this.dataInicio,
-      required this.dataFim,
-      this.isConcluido = false,
-      this.conteudos = const [],
-      this.image});
+  AfazerEntity({
+    required this.uuid,
+    required this.titulo,
+    required this.dataInicio,
+    required this.dataFim,
+    this.conteudos = const [],
+    this.isConcluido = false,
+    this.image,
+  });
 
   factory AfazerEntity.fromJson(Map<String, dynamic> json) {
     return AfazerEntity(
       uuid: json['uuid'],
       titulo: json['titulo'],
       dataInicio: DateTime.fromMicrosecondsSinceEpoch(json['dataInicio']),
-      dataFim: DateTime.fromMillisecondsSinceEpoch(json['dataFim']),
+      dataFim: DateTime.fromMicrosecondsSinceEpoch(json['dataFim']),
       isConcluido: json['isConcluido'],
-      conteudos: AfazerCheckListEntity.fromJsonList(json['conteudos']),
+      conteudos: AfazerChecklistEntity.fromJsonList(json['conteudos']),
       image: json['image'],
     );
   }
 
-//para transforma num arquivo Json
   Map<String, dynamic> toJson() {
     return {
       'uuid': uuid,
       'titulo': titulo,
-      'dataInicio': dataInicio
-          .microsecondsSinceEpoch, //transforma num inteiro assim fica fácil transformar em Json
-      'dataFin': dataFim.microsecondsSinceEpoch,
+      'dataInicio': dataInicio.microsecondsSinceEpoch,
+      'dataFim': dataFim.microsecondsSinceEpoch,
       'isConcluido': isConcluido,
       'conteudos': conteudos,
-      if (image != null) 'image': image
+      if (image != null) 'image': image,
     };
   }
 

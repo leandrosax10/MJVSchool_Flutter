@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shcool/entities/afazer_checklist_entity.dart';
+import 'package:shcool/entities/afazer_checklist_enty.dart';
 
 class DetalheItemWidget extends StatelessWidget {
-  final AfazerCheckListEntity item;
+  final AfazerChecklistEntity item;
   final Function(bool? val) onChanged;
 
   const DetalheItemWidget({
@@ -22,7 +22,7 @@ class DetalheItemWidget extends StatelessWidget {
           value: item.isChecked,
           onChanged: onChanged,
         ),
-        const Divider()
+        const Divider(),
       ],
     );
   }

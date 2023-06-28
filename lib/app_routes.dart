@@ -9,7 +9,7 @@ class AppRoutes {
   static Map<String, Widget Function(BuildContext)> routes() {
     return {
       initialRoute: (context) => const HomePage(),
-      detalhe: (context) => const DetalhePage()
+      detalhe: (context) => const DetalhePage(),
     };
   }
 }

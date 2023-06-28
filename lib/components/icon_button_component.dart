@@ -7,12 +7,12 @@ class IconButtonComponent extends StatelessWidget {
   final Function()? onPressed;
 
   const IconButtonComponent({
-    Key? key,
+    super.key,
+    this.onPressed,
     this.size = 24,
     this.icon = Icons.add,
     this.color,
-    required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

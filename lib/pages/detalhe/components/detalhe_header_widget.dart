@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../components/icon_button_component.dart';
-import '../../../entities/afazer_entity.dart';
-import '../../../services/picker_service.dart';
+import 'package:shcool/components/icon_button_component.dart';
+import 'package:shcool/entities/afazer_entity.dart';
+import 'package:shcool/services/picker_service.dart';
 
 class DetalheHeaderWidget extends StatelessWidget {
   final AfazerEntity item;
@@ -38,16 +38,17 @@ class DetalheHeaderWidget extends StatelessWidget {
           right: 0,
           left: 0,
           child: Container(
-            width: double.maxFinite,
+            width: double.infinity,
             color: const Color.fromARGB(219, 255, 193, 7),
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: const Text(
-              'Bar',
+            child: Text(
+              item.titulo,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+              style: const TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -59,7 +60,7 @@ class DetalheHeaderWidget extends StatelessWidget {
             size: 24,
             onPressed: onEdit,
           ),
-        ),
+        )
       ],
     );
   }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:shcool/components/body_component.dart';
 import 'package:shcool/components/spacer_component.dart';
-import 'package:shcool/pages/detalhe/components/detalhe_item_widget.dart';
+import 'package:shcool/pages/detalhe/components/detalhe_header_widget.dart';
 import 'package:shcool/pages/detalhe/components/detalhe_menu_widget.dart';
-import '../../components/bory_component.dart';
-import '../../providers/afazer_provider.dart';
-import '../../services/picker_service.dart';
-import 'components/detalhe_header_widget.dart';
+import 'package:shcool/providers/afazer_provider.dart';
+import 'package:shcool/services/picker_service.dart';
+
+import 'components/detalhe_item_widget.dart';
 
 class DetalhePage extends StatefulWidget {
   const DetalhePage({super.key});
@@ -57,7 +58,7 @@ class _DetalhePageState extends State<DetalhePage> {
   }
 
   @override
-  void didChangeDependecies() {
+  void didChangeDependencies() {
     super.didChangeDependencies();
     final arg = ModalRoute.of(context)?.settings.arguments;
     if (arg != null) {
@@ -73,6 +74,7 @@ class _DetalhePageState extends State<DetalhePage> {
       Navigator.of(context).pop();
       return const Text('Selecione um item da lista.');
     }
+
     return BodyComponent(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(0),

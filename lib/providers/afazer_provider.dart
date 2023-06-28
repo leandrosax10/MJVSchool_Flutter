@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shcool/services/afazer_service.dart';
+
 import '../entities/afazer_entity.dart';
 import '../pages/home/components/novo_item_widget.dart';
-import '../services/afazer_service.dart';
 
 class AfazerProvider with ChangeNotifier {
   final service = AfazerService();
   List<AfazerEntity> _listaAfazeres = [];
-
   AfazerEntity? _selecionado;
+  int? _idx;
 
   AfazerProvider() {
     buscarAfazeres();
@@ -19,10 +20,17 @@ class AfazerProvider with ChangeNotifier {
 
   List<AfazerEntity> get listaAfazeres => _listaAfazeres;
 
-  AfazerEntity? get selecionado => _selecionado;
+  AfazerEntity? get selecionado {
+    return _selecionado;
+  }
 
   set selecionado(AfazerEntity? val) {
     _selecionado = val;
+    notifyListeners();
+  }
+
+  set idx(int val) {
+    _idx = val;
     notifyListeners();
   }
 
@@ -36,12 +44,16 @@ class AfazerProvider with ChangeNotifier {
   set listaAfazeres(List<AfazerEntity> val) {
     _listaAfazeres = val;
     service.salvar(_listaAfazeres);
-    notifyListeners(); //toda vez que alterar o estado da lista, precisa chamar o notifyListeners()
+    notifyListeners();
   }
 
-//cadastrar/create
+  void removerItemAfazer(int index) {
+    listaAfazeres.removeAt(index);
+    service.salvar(listaAfazeres);
+    notifyListeners();
+  }
+
   void abrirModalCadastro(BuildContext context) {
-    //showDialog cria modal!
     showDialog(
       context: context,
       builder: (context) {
@@ -50,17 +62,10 @@ class AfazerProvider with ChangeNotifier {
           children: [
             NovoItemWidget(callback: (item) {
               listaAfazeres = [item, ...listaAfazeres];
-            })
+            }),
           ],
         );
       },
     );
-  }
-
-  //remove/delete
-  void removerItemAfazer(int index) {
-    _listaAfazeres.removeAt(index);
-    service.salvar(listaAfazeres);
-    notifyListeners();
   }
 }

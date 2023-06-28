@@ -4,9 +4,9 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   final String titulo;
 
   const AppBarComponent({
-    Key? key,
-    this.titulo = 'Shcool',
-  }) : super(key: key);
+    super.key,
+    this.titulo = 'School',
+  });
 
   static Size get size => const Size.fromHeight(kToolbarHeight);
 
@@ -15,6 +15,13 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(title: const Text('School'), actions:[const CircleAvatar(child: Text('L'))],);
+    return AppBar(
+      title: Text(titulo),
+      actions: [
+        const CircleAvatar(
+          child: Text('Rf'),
+        ),
+      ],
+    );
   }
 }
